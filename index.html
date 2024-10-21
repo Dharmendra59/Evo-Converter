@@ -39,10 +39,11 @@
                 <div class="section1">
 
                     <div class="csv-converter">
-                        <textarea></textarea>
+                        <textarea spellcheck="false" id="csvText" style="resize: none;"></textarea>
                         <div class="buttons">
-                            <input type="file" id="csvFile" accept=".csv" onchange="handleFileChange('csvFile')">
-                            <button id="browse">Browse</button>
+                            <button id="browse">Browse
+                                <input type="file" id="csvFile" accept=".csv" hidden>
+                            </button>
                             <button id="convert">Convert</button>
                         </div>
                     </div>
@@ -50,7 +51,7 @@
                 <div class="section2">
 
                     <div class="json-converter">
-                        <textarea></textarea>
+                        <textarea spellcheck="false" id="jsonText" style="resize: none;"></textarea>
                         <div class="buttons">
                             <button id="copy">Copy</button>
                             <button id="save">Save</button>
@@ -61,6 +62,7 @@
         </main>
     </fieldset>
 
+    <script src="script.js"></script>
 
 </body>
 
