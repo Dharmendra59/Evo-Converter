@@ -28,8 +28,8 @@
                 <div class="csv">
                     <h2 style="font-size: 50px;">CSV</h2>
                 </div>
-                <div style="position: relative; bottom:10px;">
-                    <h1 style="font-size: 90px;">CSV TO JSON</h1>
+                <div class="cj">
+                    <h1 style="font-weight: 100;">CSV TO JSON</h1>
                 </div>
                 <div class="json">
                     <h2 style="font-size: 50px;">JSON</h2>
@@ -41,6 +41,7 @@
                     <div class="csv-converter">
                         <textarea></textarea>
                         <div class="buttons">
+                            <input type="file" id="csvFile" accept=".csv" onchange="handleFileChange('csvFile')">
                             <button id="browse">Browse</button>
                             <button id="convert">Convert</button>
                         </div>
