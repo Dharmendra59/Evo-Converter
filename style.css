@@ -161,10 +161,29 @@ textarea {
     padding-top: 20px;
 }
 
-.buttons button {
+.buttons button,
+.buttons input {
     font-size: 20px;
-    padding: 10px 20px 10px 20px;
+    padding: 10px;
     border-radius: 10px;
     background-color: white;
     font-weight: 500;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.custom-file-label {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: 500;
+    border: 1px solid black;
 }

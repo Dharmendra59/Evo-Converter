@@ -1,55 +1,58 @@
 let browse = document.querySelector("#browse");
-let csvInput = document.querySelector("#browse input");
 let convert = document.querySelector("#convert");
-let csvFile = document.querySelector("#csvFile");
-let jsonFile = document.querySelector("#jsonFile");
 let copy = document.querySelector("#copy");
 let save = document.querySelector("#save");
 let csvText = document.querySelector("#csvText");
 let jsonText = document.querySelector("#jsonText");
 
+browse.addEventListener('change', (e) => {
+    const file = event.target.files[0];
 
+    if (file) {
+        const reader = new FileReader();
 
+        reader.onload = function(e) {
+            const fileContent = e.target.result;
+            csvText.textContent = fileContent;
+        };
 
-browse.addEventListener("click", () => {
-    csvFile.click();
+        reader.onerror = function(e) {
+            console.error("Error reading file", e);
+        };
 
-
-
-    let file = csvFile.files[0];
-    let reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-        csvText.value = reader.result;
+        reader.readAsText(file); // Read the file as text (for CSV, TXT, etc.)
+    } else {
+        console.log("No file selected.");
     }
-    reader.onerror = () => {
-        alert("error");
-    }
+})
 
+function csvToJson(csv) {
+    const lines = csv.trim().split('\n');
+    const headers = lines[0].split(',');
+    const result = [];
 
+    for (let i = 1; i < lines.length; i++) {
+        const obj = {};
+        const currentLine = lines[i].split(',');
 
-});
-convert.addEventListener("click", () => {
-    //jsonFile.click();
-    if (csvInput || csvText.value ? true : false) {
-
-        let csv = csvInput.value ? csvInput.value : csvText.value;
-        let lines = csv.split("\n");
-        let json = [];
-        let headers = lines[0].split(",");
-        for (let i = 1; i < lines.length; i++) {
-            let obj = {};
-            let currentline = lines[i].split(",");
-            for (let j = 0; j < headers.length; j++) {
-                obj[headers[j]] = currentline[j];
-            }
-            json.push(obj);
+        if (currentLine.length === headers.length) {
+            headers.forEach((header, index) => {
+                obj[header.trim()] = currentLine[index].trim();
+            });
+            result.push(obj);
         }
-        jsonText.value = JSON.stringify(json);
     }
+    return result;
+}
 
 
+convert.addEventListener("click", () => {
+    let csvTxt = document.querySelector("#csvText").value
+    const jsonResult = csvToJson(csvTxt);
+    jsonText.value = JSON.stringify(jsonResult, null, 2);
 });
+
+
 copy.addEventListener("click", () => {
     navigator.clipboard.writeText(jsonText.value)
     alert(" JSON Data Copied to clipboard");
